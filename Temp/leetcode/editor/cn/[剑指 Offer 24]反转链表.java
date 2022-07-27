@@ -19,35 +19,35 @@
 // Related Topics 递归 链表 
 // 👍 460 👎 0
 
-public class FanZhuanLianBiaoLcof{
+public class FanZhuanLianBiaoLcof {
     public static void main(String[] args) {
         Solution solution = new FanZhuanLianBiaoLcof().new Solution();
 
     }
 
 //leetcode submit region begin(Prohibit modification and deletion)
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- */
-class Solution {
-    public ListNode reverseList(ListNode head) {
 
-        ListNode pre = null;
-        ListNode next= null;
-        while (head!=null){
-            next = head.next;
-            head.next=pre;
-            pre = head;
-            head = next;
+    /**
+     * Definition for singly-linked list.
+     * public class ListNode {
+     * int val;
+     * ListNode next;
+     * ListNode(int x) { val = x; }
+     * }
+     */
+    class Solution {
+        public ListNode reverseList(ListNode head) {
+            ListNode pre = null;
+            ListNode last = null;
+            while (head != null) {
+                last = head.next;
+                head.next = pre;
+                pre = head;
+                head = last;
+            }
+            return pre;
         }
-        return pre;
     }
-}
 //leetcode submit region end(Prohibit modification and deletion)
 
 }
