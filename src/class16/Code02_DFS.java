@@ -6,16 +6,14 @@ import java.util.Stack;
 public class Code02_DFS {
 
 	public static void dfs(Node node) {
-		if (node==null)
-		{
+		if (node == null) {
 			return;
 		}
 		Stack<Node> stack = new Stack<>();
 		HashSet<Node> set = new HashSet<>();
 		stack.push(node);
 		set.add(node);
-		while (!stack.isEmpty())
-		{
+		while (!stack.isEmpty()) {
 			Node cur = stack.pop();
 			for (Node next : cur.nexts) {
 				if (!set.contains(next)) {
@@ -26,10 +24,10 @@ public class Code02_DFS {
 					System.out.println(next.value);
 					break;
 				}
+			}
 		}
+
 	}
-	
-	
+}
 	
 
-}
