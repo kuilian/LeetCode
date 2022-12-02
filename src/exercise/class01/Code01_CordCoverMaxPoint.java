@@ -9,57 +9,88 @@ import java.util.Arrays;
  */
 public class Code01_CordCoverMaxPoint {
 
+//    public static int maxPoint1(int[] arr, int L) {
+//        int res = 1;
+//        for (int i = 0; i < arr.length; i++) {
+//            //假设绳子的末尾来到每一个给定点  没有必要去不在指定点的位置
+//            // 这个绳子能覆盖到最多的点： arr[i] - 绳子的长度 这个范围内 覆盖到的点数
+//            //返回数组中在这个范围内最接近 大于等于最左边值的位置
+//            int nestrest = nearestIndex(arr, i, arr[i] - L);
+//            //为什么是i？
+//            // 个数！就是当前数组的下标 减去nestest（是最大于等于范围内最左的值的下标） 最后加上自身 就是覆盖到的点
+//            res = Math.max(res, i - nestrest + 1);
+//        }
+//        return res;
+//    }
+
+//    /***
+//     * @Date 21:53 2022/12/1
+//     * @Param [arr, R, value] R:结束点 value: 开头点最多只能退到的位置
+//     * @return int
+//     * @Description:  // 这个绳子能覆盖到最多的点： arr[i] - 绳子的长度 这个范围内 覆盖到的点数
+//     *             //返回数组中在这个范围内最接近 大于等于最左边值的位置
+//     */
+//    public static int nearestIndex(int[] arr, int R, int value) {
+//        //二分法
+//        int index = R;
+//        int L = 0;
+//        while (L <= R) {
+//            int mid = L + ((R - L) >> 1);
+//            if (arr[mid] >= value) {
+//                //为什么index = mid  如果当前位置值大于value 说明这个数在范围中 返回下标
+//                index = mid;
+//                R = mid - 1;
+//            } else {
+//                L = mid + 1;
+//            }
+//        }
+//        return index;
+//
+//    }
+
     public static int maxPoint1(int[] arr, int L) {
         int res = 1;
+
         for (int i = 0; i < arr.length; i++) {
-            //假设绳子的末尾来到每一个给定点  没有必要去不在指定点的位置
-            // 这个绳子能覆盖到最多的点： arr[i] - 绳子的长度 这个范围内 覆盖到的点数
-            //返回数组中在这个范围内最接近 大于等于最左边值的位置
-            int nestrest = nearestIndex(arr, i, arr[i] - L);
-            //为什么是i？
-            // 个数！就是当前数组的下标 减去nestest（是最大于等于范围内最左的值的下标） 最后加上自身 就是覆盖到的点
-            res = Math.max(res, i - nestrest + 1);
+
+            int index = nearestIndex(arr, i, arr[i] - L);
+            res = Math.max(res, i - index + 1);
         }
         return res;
+
+
     }
 
-    /***
-     * @Date 21:53 2022/12/1
-     * @Param [arr, R, value] R:结束点 value: 开头点最多只能退到的位置
-     * @return int
-     * @Description:  // 这个绳子能覆盖到最多的点： arr[i] - 绳子的长度 这个范围内 覆盖到的点数
-     *             //返回数组中在这个范围内最接近 大于等于最左边值的位置
-     */
     public static int nearestIndex(int[] arr, int R, int value) {
-        //二分法
-        int index = R;
+        int ans = R;
         int L = 0;
         while (L <= R) {
             int mid = L + ((R - L) >> 1);
-            if (arr[mid] >= value) {
-                //为什么index = mid  如果当前位置值大于value 说明这个数在范围中 返回下标
-                index = mid;
-                R = mid - 1;
-            } else {
+            if (arr[mid] >= value)
+            {
+                ans = mid;
+                R = mid-1;
+            }else{
                 L = mid + 1;
             }
         }
-        return index;
-
+        return ans;
     }
 
     //滑动窗口
     public static int maxPoint2(int[] arr, int L) {
-        int ans = 0;
         int left = 0;
         int right = 0;
         int N = arr.length;
+        int ans = 0;
         while (left < N) {
             while (right < N && arr[right] - arr[left] <= L) {
                 right++;
             }
             ans = Math.max(ans, right - (left++));
+
         }
+
         return ans;
     }
 
